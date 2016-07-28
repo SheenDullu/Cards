@@ -36,22 +36,157 @@ public class Hand {
         if(isFourOfAKind(bestComb)) {
             System.out.println("Four of a kind");
         }
-        else if(isRoyalFlush(bestComb)) {
+         if(isRoyalFlush(bestComb, this.playerCard)) {
             System.out.println("Royal Flush");
         }
-    }
-    private boolean isStraightFlush(int[] bestComb) {
 
-        return bestComb[0]==9 && bestComb[1]==10 && bestComb[2]==11 && bestComb[3]==12 && bestComb[4]==13;
+            if (isThreeOfAKind(bestComb))
+            {
+                System.out.println("Three Of A KInd");
+            }
+            if(isFullHouse(bestComb)){
+                System.out.println("Full House");
+            }
+
+        if(isTwoPair(bestComb)){
+            System.out.println("Two Pair");
+        }
+        if(isOnePair(bestComb)){
+            System.out.println("One Pair");
+        }
+        if(isHighCard(bestComb)){
+            System.out.println("High Card");
+        }
+        if(isStraight(bestComb)){
+            System.out.println("Straight");
+        }
+        if(isFlush(this.playerCard)){
+            System.out.println("Flush");
+        }
+        if(isStraightFlush(bestComb,this.playerCard)) {
+            System.out.println("Straight Flush");
+        }
+    }
+
+    private boolean isFlush(Card[] playerCard) {
+        String match="";
+        int cnt = 0;
+        for(Card c:playerCard) {
+            if(match.equals("")) {
+                match = c.suit;
+            }
+            if(c.suit.equals(match)) {
+                cnt++;
+            }
+        }
+        return cnt == 5;
+    }
+
+    private boolean isStraightFlush(int[] bestComb, Card[] playerCard) {
+        String match="";
+        int cnt = 0;
+        for(Card c:playerCard) {
+            if(match.equals("")) {
+                match = c.suit;
+            }
+            if(c.suit.equals(match)) {
+                cnt++;
+            }
+        }
+
+
+        return cnt == 5 && bestComb[0]==9 && bestComb[1]==10 && bestComb[2]==11 && bestComb[3]==12 && bestComb[4]==13;
     }
     private boolean isFourOfAKind(int[] bestComb) {
 
        return ((bestComb[1]==bestComb[2]) &&(bestComb[2]==bestComb[3])&&((bestComb[0]==bestComb[1])||(bestComb[4]==bestComb[3])));
     }
+    private boolean isThreeOfAKind(int[] bestComb ) {
+        int count =0;
+        for(int i = 0 ; i < 4 ; i++)
+        {
+            if(bestComb[i] == bestComb[i+1])
+            {
+                count++;
+            }
+            if(count==3)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isFullHouse(int[] bestComb) {
 
-    private boolean isRoyalFlush(int[] bestComb) {
+        return ((bestComb[0]==bestComb[1]) &&(bestComb[3]==bestComb[4])&& ((bestComb[1]==bestComb[2])||(bestComb[2]==bestComb[3])));
+    }
 
-        return bestComb[0]==1 && bestComb[1]==10&& bestComb[2]==11 && bestComb[3]==12 && bestComb[4]==13;
+    private boolean isRoyalFlush(int[] bestComb, Card[] playerCard) {
+        String match="";
+        int cnt = 0;
+        for(Card c:playerCard) {
+            if(match.equals("")) {
+                match = c.suit;
+            }
+            if(c.suit.equals(match)) {
+                cnt++;
+            }
+        }
+
+        return cnt == 5 && bestComb[0]==1 && bestComb[1]==10&& bestComb[2]==11 && bestComb[3]==12 && bestComb[4]==13;
+    }
+     private  boolean isTwoPair (int []  bestComb){
+         int count = 0;
+         for(int i = 0; i<4;i++)
+         {
+             if (bestComb[i] == bestComb[i+1]) {
+                 count ++;
+
+             }
+         }
+         if(count == 2)
+             return true;
+         return false;
+     }
+    private  boolean isHighCard (int []  bestComb){
+        int count = 0;
+        for(int i = 0; i<4;i++)
+        {
+            if (bestComb[i] == bestComb[i+1]) {
+                count ++;
+
+            }
+        }
+        if(count == 0)
+            return true;
+        return false;
+    }
+
+    private  boolean isOnePair (int []  bestComb){
+        int count = 0;
+        for(int i = 0; i<4;i++)
+        {
+            if (bestComb[i] == bestComb[i+1]) {
+                count ++;
+
+            }
+        }
+        if(count == 1)
+            return true;
+        return false;
+    }
+    private  boolean isStraight (int []  bestComb){
+        int count = 0;
+        for(int i = 0; i<4;i++)
+        {
+            if (bestComb[i] == (bestComb[i+1]-1)) {
+                count ++;
+
+            }
+        }
+        if(count == 4)
+            return true;
+        return false;
     }
 
     public static void main(String[] args) {
