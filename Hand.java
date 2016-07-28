@@ -33,14 +33,25 @@ public class Hand {
             i++;
         }
         Arrays.sort(bestComb);
-        if(isStraight(bestComb)) {
-            System.out.println("Straight possible");
+        if(isFourOfAKind(bestComb)) {
+            System.out.println("Four of a kind");
+        }
+        else if(isRoyalFlush(bestComb)) {
+            System.out.println("Royal Flush");
         }
     }
+    private boolean isStraightFlush(int[] bestComb) {
 
-    private boolean isStraight(int[] bestComb) {
-       
-        return false;
+        return bestComb[0]==9 && bestComb[1]==10 && bestComb[2]==11 && bestComb[3]==12 && bestComb[4]==13;
+    }
+    private boolean isFourOfAKind(int[] bestComb) {
+
+       return ((bestComb[1]==bestComb[2]) &&(bestComb[2]==bestComb[3])&&((bestComb[0]==bestComb[1])||(bestComb[4]==bestComb[3])));
+    }
+
+    private boolean isRoyalFlush(int[] bestComb) {
+
+        return bestComb[0]==1 && bestComb[1]==10&& bestComb[2]==11 && bestComb[3]==12 && bestComb[4]==13;
     }
 
     public static void main(String[] args) {
