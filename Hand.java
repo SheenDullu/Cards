@@ -1,6 +1,6 @@
 package com.predictor;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Hand {
@@ -33,39 +33,31 @@ public class Hand {
             i++;
         }
         Arrays.sort(bestComb);
-        if(isFourOfAKind(bestComb)) {
-            System.out.println("Four of a kind");
-        }
-         if(isRoyalFlush(bestComb, this.playerCard)) {
+
+        if(isRoyalFlush(bestComb, this.playerCard)) {
             System.out.println("Royal Flush");
-        }
-
-            if (isThreeOfAKind(bestComb))
-            {
-                System.out.println("Three Of A KInd");
-            }
-            if(isFullHouse(bestComb)){
-                System.out.println("Full House");
-            }
-
-        if(isTwoPair(bestComb)){
-            System.out.println("Two Pair");
-        }
-        if(isOnePair(bestComb)){
-            System.out.println("One Pair");
+        } else if(isStraightFlush(bestComb,this.playerCard)) {
+            System.out.println("Straight Flush");
+        } else if(isFourOfAKind(bestComb)) {
+            System.out.println("Four Of A Kind");
+        } else if(isFullHouse(bestComb)) {
+            System.out.println("Full House");
+        } else if(isFlush(this.playerCard)) {
+            System.out.println("Flush");
+        } else if(isStraight(bestComb)) {
+            System.out.println("Straight");
+        } else if(isThreeOfAKind(bestComb)) {
+            System.out.println("Three of A KInd");
+        } else if(isTwoPair(bestComb)) {
+            System.out.println("Two of pair");
+        } else if(isOnePair(bestComb)) {
+            System.out.println("one pair");
         }
         if(isHighCard(bestComb)){
             System.out.println("High Card");
         }
-        if(isStraight(bestComb)){
-            System.out.println("Straight");
-        }
-        if(isFlush(this.playerCard)){
-            System.out.println("Flush");
-        }
-        if(isStraightFlush(bestComb,this.playerCard)) {
-            System.out.println("Straight Flush");
-        }
+
+
     }
 
     private boolean isFlush(Card[] playerCard) {
@@ -102,20 +94,13 @@ public class Hand {
        return ((bestComb[1]==bestComb[2]) &&(bestComb[2]==bestComb[3])&&((bestComb[0]==bestComb[1])||(bestComb[4]==bestComb[3])));
     }
     private boolean isThreeOfAKind(int[] bestComb ) {
-        int count =0;
-        for(int i = 0 ; i < 4 ; i++)
-        {
-            if(bestComb[i] == bestComb[i+1])
-            {
-                count++;
-            }
-            if(count==3)
-            {
+        for (int i = 0; i< bestComb.length - 2; i++) {
+            if(bestComb[i]== bestComb[i+1] && bestComb[i+1]== bestComb[i+2])
                 return true;
-            }
         }
         return false;
     }
+
     private boolean isFullHouse(int[] bestComb) {
 
         return ((bestComb[0]==bestComb[1]) &&(bestComb[3]==bestComb[4])&& ((bestComb[1]==bestComb[2])||(bestComb[2]==bestComb[3])));
@@ -135,23 +120,24 @@ public class Hand {
 
         return cnt == 5 && bestComb[0]==1 && bestComb[1]==10&& bestComb[2]==11 && bestComb[3]==12 && bestComb[4]==13;
     }
-     private  boolean isTwoPair (int []  bestComb){
-         int count = 0;
-         for(int i = 0; i<4;i++)
-         {
-             if (bestComb[i] == bestComb[i+1]) {
-                 count ++;
 
+
+         private  boolean isTwoPair (int []  bestComb){
+             int flg = 0;
+             for(int i = 0; i < bestComb.length-1; i++) {
+                 if(bestComb[i]== bestComb[i+1]) {
+                     i++;
+                     flg++;
+                 }
              }
-         }
-         if(count == 2)
-             return true;
-         return false;
+             return flg == 2;
+
      }
     private  boolean isHighCard (int []  bestComb){
         int count = 0;
         for(int i = 0; i<4;i++)
         {
+
             if (bestComb[i] == bestComb[i+1]) {
                 count ++;
 

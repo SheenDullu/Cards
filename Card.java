@@ -1,7 +1,7 @@
 package com.predictor;
-//import java.util.ArrayLiST;
 
-import java.util.ArrayList;
+
+//import java.util.ArrayList;
 
 public class Card {
 
